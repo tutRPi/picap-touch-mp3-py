@@ -84,11 +84,12 @@ pygame.init()
 
 # load paths
 paths = []
+sounds = []
 for i in range(num_electrodes):
   path = "tracks/.wavs/TRACK{0:03d}.wav".format(i)
   print "loading file: " + path
-
   paths.append(path)
+  sounds.append(None)
 
 while True:
   if sensor.touch_status_changed():
@@ -103,8 +104,11 @@ while True:
         # play sound associated with that touch
         print "playing sound: " + str(i)
         path = paths[i]
-        sound = pygame.mixer.Sound(path)
-        sound.play()
+        sounds[i] = pygame.mixer.Sound(path)
+        sounds[i].play(-1)
+      elif sensor.is_new_release(i):
+        sounds[i].stop()
+
 
     # light up red led if we have any touch registered currently
     if is_any_touch_registered:
