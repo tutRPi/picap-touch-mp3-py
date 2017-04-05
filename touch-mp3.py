@@ -107,7 +107,7 @@ while True:
         sounds[i] = pygame.mixer.Sound(path)
         sounds[i].play(-1)
       elif sensor.is_new_release(i):
-        sounds[i].fadeout(sounds[i].get_length())
+        sounds[i].fadeout(int(1000 * sounds[i].get_length()))
 
 
     # light up red led if we have any touch registered currently
